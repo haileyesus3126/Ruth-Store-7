@@ -18,8 +18,7 @@ import p_img14 from './p_img14.png'
 import p_img15 from './p_img15.png'
 import p_img16 from './p_img16.png'
 import p_img17 from './p_img17.png'
-import p_img18 from './p_img18.png'
-import p_img19 from './p_img19.png'
+
 import p_img20 from './p_img20.png'
 import p_img21 from './p_img21.png'
 import p_img22 from './p_img22.png'
@@ -304,7 +303,7 @@ export const filters = {
   { name: 'Hanukkah',        image: hanukkahIcon,     description: 'Festival of Lights gifts & decor.' },
   { name: 'Christmas',       image: christmasIcon,    description: 'Celebrate the holiday season with joy.' },
   { name: 'Kwanzaa',         image: kwanzaaIcon,      description: 'Seven nights of culture & community.' },
-  { name: 'Lunar New Year',  image: lunarNewYearIcon, description: 'Prosperity gifts for a bright new year.' },
+ 
   { name: 'Ramadan & Eid',   image: ramadanIcon,      description: 'Thoughtful gifts for the holy season.' },
   { name: 'Diwali',          image: diwaliIcon,       description: 'Festival of lights—warm wishes & decor.' },
   { name: 'Rosh Hashanah',   image: roshHashanahIcon, description: 'Sweet new-year blessings.' },
