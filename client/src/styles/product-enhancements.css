@@ -1,0 +1,109 @@
+/* ===== Product page: advanced-thin polish (no logic changes) ===== */
+
+/* Gallery surface + subtle lighting */
+.prod-gallery{
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+  overflow: hidden;
+}
+.prod-mainImgWrap{ display:inline-block }
+.prod-mainImg{
+  transition: transform .25s ease, filter .25s ease;
+  will-change: transform;
+}
+.prod-mainImgWrap:hover .prod-mainImg{
+  transform: translateY(-2px) scale(1.01);
+  filter: contrast(1.03);
+}
+
+/* Zoom chip */
+.prod-zoomChip{
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+}
+
+/* Arrows: crisp hover */
+.prod-arrow{
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 6px 18px rgba(0,0,0,.12);
+}
+
+/* Thumbs: active ring + soft hover */
+.prod-thumb{
+  position: relative;
+  transition: border-color .2s ease, box-shadow .2s ease;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  background: #fff;
+}
+.prod-thumb:hover{
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.prod-thumb--active{
+  box-shadow: 0 8px 22px rgba(0,0,0,.16);
+}
+.prod-thumb--active::after{
+  content:"";
+  position:absolute; inset:-2px;
+  border-radius: 10px;
+  border: 2px solid #111;
+  pointer-events:none;
+}
+
+/* Size pills: ripple accent */
+.prod-size{
+  position: relative;
+  overflow: hidden;
+}
+.prod-size::after{
+  content:"";
+  position:absolute; left:50%; top:50%;
+  width: 0; height: 0;
+  background: rgba(0,0,0,.08);
+  border-radius: 999px;
+  transform: translate(-50%,-50%);
+  transition: width .35s ease, height .35s ease, opacity .35s ease;
+  opacity: 0;
+}
+.prod-size:active::after{
+  width: 220%; height: 220%;
+  opacity: 1;
+}
+
+/* CTA shine */
+.prod-cta{ isolation: isolate; }
+.prod-shine{
+  content:"";
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.17), rgba(255,255,255,0));
+  transform: translateX(-120%);
+  transition: transform .7s cubic-bezier(.22,.8,.3,1);
+}
+.prod-cta:hover .prod-shine{ transform: translateX(120%) }
+
+/* Wishlist hover feedback */
+.prod-wish{ transition: transform .15s ease }
+.prod-wish:hover{ transform: translateY(-1px) }
+
+/* Share button focus */
+.prod-share:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,102,255,.18);
+  border-radius: 10px;
+}
+
+/* Toast: gentle float */
+.prod-toast{
+  animation: prodToastIn .28s ease both;
+}
+@keyframes prodToastIn{
+  from{ opacity:0; transform: translateY(6px) }
+  to{ opacity:1; transform: none }
+}
+
+/* Zoom overlay: prevent scroll bleed on mobile notch areas */
+.prod-zoom{ padding-bottom: env(safe-area-inset-bottom) }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}

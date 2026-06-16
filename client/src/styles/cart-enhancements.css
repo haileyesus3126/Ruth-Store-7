@@ -1,0 +1,56 @@
+/* ===== Cart: advanced-thin polish (no logic changes) ===== */
+
+/* Line hover background + soft elevation */
+.cart-line{
+  border-bottom-color: rgba(0,0,0,.08) !important;
+}
+.cart-line:hover{
+  background: linear-gradient(180deg, rgba(0,0,0,.02), transparent 60%);
+}
+
+/* Image: subtle framed look */
+.cart-line-img{
+  box-shadow: 0 1px 0 rgba(0,0,0,.04) inset;
+  border-radius: 10px;
+}
+
+/* Remove link: gentle attention on hover */
+.cart-remove{
+  transition: color .18s ease, transform .18s ease, text-decoration-color .18s ease;
+}
+.cart-remove:hover{
+  transform: translateY(-1px);
+  text-decoration-thickness: from-font;
+}
+
+/* Totals: clean separation and tiny shimmer on change */
+.cart-totals{
+  position: relative;
+}
+.cart-totals p span{
+  transition: color .2s ease;
+}
+.cart-totals p span:hover{
+  color: #111827; /* gray-900 */
+}
+
+/* Checkout button: hairline shine sweep */
+.cart-checkout{
+  position: relative;
+  isolation: isolate; /* keep shine under text */
+}
+.cart-checkout-shine{
+  content:"";
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.18), rgba(255,255,255,0));
+  transform: translateX(-120%);
+  transition: transform .7s cubic-bezier(.22,.8,.3,1);
+}
+.cart-checkout:hover .cart-checkout-shine{
+  transform: translateX(120%);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}

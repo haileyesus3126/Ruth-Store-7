@@ -1,0 +1,62 @@
+/* ===== Contact page: advanced-thin polish (no logic changes) ===== */
+
+/* Cards (call/email/HQ) */
+.cnt-card{
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+  transition: box-shadow .25s ease, border-color .25s ease, transform .25s ease;
+}
+.cnt-card::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(60% 40% at 20% 10%, rgba(255,255,255,.18), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.02), transparent 30%);
+  opacity: 0; transition: opacity .25s ease; pointer-events: none;
+}
+.cnt-card:hover{
+  box-shadow: 0 14px 34px rgba(0,0,0,.12);
+  border-color: rgba(0,0,0,.14);
+}
+.cnt-card:hover::before{ opacity: 1 }
+
+/* Links: tiny lift */
+.cnt-link{
+  transition: transform .18s ease, text-shadow .18s ease, color .18s ease;
+}
+.cnt-link:hover{ transform: translateY(-1px) }
+
+/* Inputs/selects/textarea: hairline glow */
+.cnt-input, .cnt-select, .cnt-textarea{
+  box-shadow: 0 1px 0 rgba(0,0,0,.04) inset;
+  transition: box-shadow .22s ease, border-color .22s ease, background-color .22s ease;
+}
+.cnt-input:focus, .cnt-select:focus, .cnt-textarea:focus{
+  outline: none;
+  border-color: rgba(0,102,255,.36);
+  box-shadow: 0 0 0 3px rgba(0,102,255,.14);
+}
+
+/* Success status pop */
+.cnt-status{
+  text-shadow: 0 0 0 transparent;
+}
+
+/* Submit button: hairline shine sweep */
+.cnt-submit{ position: relative; isolation: isolate; }
+.cnt-shine{
+  content:"";
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.18), rgba(255,255,255,0));
+  transform: translateX(-120%);
+  transition: transform .7s cubic-bezier(.22,.8,.3,1);
+}
+.cnt-submit:hover .cnt-shine{ transform: translateX(120%); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}

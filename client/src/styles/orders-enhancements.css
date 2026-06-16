@@ -1,0 +1,69 @@
+/* ===== Orders: advanced-thin polish (no logic changes) ===== */
+
+/* Order card: soft elevation + surface lighting */
+.ord-card{
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+  position: relative;
+  overflow: hidden;
+}
+.ord-card::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(60% 40% at 20% 10%, rgba(255,255,255,.18), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.02), transparent 30%);
+  pointer-events: none;
+  opacity: .0;
+  transition: opacity .25s ease;
+}
+.ord-card:hover::before{ opacity: .9 }
+
+/* Lines: tiny highlight on hover */
+.ord-line{
+  transition: background-color .18s ease;
+}
+.ord-line:hover{
+  background: linear-gradient(90deg, rgba(0,0,0,.02), transparent 60%);
+}
+
+/* Image micro-float */
+.ord-img{
+  transition: transform .22s ease, filter .22s ease;
+}
+.ord-imgWrap:hover .ord-img{
+  transform: translateY(-2px) scale(1.02);
+  filter: contrast(1.02);
+}
+
+/* Missing product note */
+.ord-missing{
+  padding: .375rem .5rem;
+  background: #fff1f2;           /* red-50 */
+  border: 1px solid #fecdd3;     /* red-200 */
+  border-radius: .5rem;
+}
+
+/* Total row: sleek top gradient divider */
+.ord-total{
+  border-top: 1px solid rgba(0,0,0,.06);
+  position: relative;
+}
+.ord-total::before{
+  content:"";
+  position:absolute; left:0; right:0; top:-1px; height:1px;
+  background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.12), rgba(0,0,0,0));
+  pointer-events:none;
+}
+
+/* Keyboard focus polish (links & image wrapper) */
+a:focus-visible, .ord-imgWrap:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,102,255,.18);
+  border-radius: 12px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}

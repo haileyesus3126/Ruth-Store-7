@@ -1,0 +1,45 @@
+/* ===== Collection: advanced-thin polish (no logic changes) ===== */
+
+/* Filter selects: hairline glow + crisp focus */
+.coll-select{
+  box-shadow: 0 1px 0 rgba(0,0,0,.04) inset;
+  transition: box-shadow .22s ease, border-color .22s ease, background-color .22s ease;
+}
+.coll-select:focus{
+  border-color: rgba(0,102,255,.36);
+  box-shadow: 0 0 0 3px rgba(0,102,255,.14);
+  outline: none;
+}
+
+/* Info line under title */
+.coll-info{
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+/* Active filters strip */
+.coll-active{
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 10px;
+  padding: .5rem .75rem;
+  background: linear-gradient(180deg, rgba(0,0,0,.02), transparent 60%);
+}
+
+/* Pagination buttons with a tiny shine */
+.coll-page{
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.coll-page::after{
+  content:"";
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.18), rgba(255,255,255,0));
+  transform: translateX(-120%);
+  transition: transform .6s cubic-bezier(.22,.8,.3,1);
+}
+.coll-page:hover::after{ transform: translateX(120%); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}

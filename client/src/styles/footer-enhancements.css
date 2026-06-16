@@ -1,0 +1,115 @@
+/* ===== Footer: smart + thin animations (no JSX edits) ===== */
+
+/* Section fade/raise on first reveal */
+footer[aria-labelledby="site-footer-title"]{
+  will-change: transform, opacity;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+footer[aria-labelledby="site-footer-title"][data-visible="1"]{
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger in columns (left/middle/right) */
+footer[aria-labelledby="site-footer-title"] .max-w-6xl > *{
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .5s ease, transform .5s ease;
+  transition-delay: var(--col-delay, 0s);
+}
+footer[aria-labelledby="site-footer-title"][data-visible="1"] .max-w-6xl > *{
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger in children inside each column */
+footer[aria-labelledby="site-footer-title"] nav[aria-label="Company"] li,
+footer[aria-labelledby="site-footer-title"] .mt-4[aria-label="Social media"] li,
+footer[aria-labelledby="site-footer-title"] .mt-6 ul li{
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .45s ease, transform .45s ease;
+  transition-delay: var(--i, 0s);
+}
+footer[aria-labelledby="site-footer-title"][data-visible="1"] nav[aria-label="Company"] li,
+footer[aria-labelledby="site-footer-title"][data-visible="1"] .mt-4[aria-label="Social media"] li,
+footer[aria-labelledby="site-footer-title"][data-visible="1"] .mt-6 ul li{
+  opacity: 1;
+  transform: none;
+}
+
+/* Company links: hairline underline + micro nudge */
+footer nav[aria-label="Company"] a{
+  position: relative;
+  transition: color .18s ease, padding-left .18s ease;
+}
+footer nav[aria-label="Company"] a::after{
+  content:""; position:absolute; left:0; bottom:-3px; height:1px; width:100%;
+  background: currentColor; transform: scaleX(0); transform-origin:left;
+  transition: transform .22s ease;
+}
+footer nav[aria-label="Company"] a:hover{ padding-left: .15rem; }
+footer nav[aria-label="Company"] a:hover::after{ transform: scaleX(1) }
+
+/* Social icons: soft lift + ink effect */
+footer [aria-label="Social media"] a{
+  display:inline-flex; align-items:center; justify-content:center;
+  transition: transform .18s ease, filter .18s ease, box-shadow .2s ease;
+  border-radius: 10px;
+}
+footer [aria-label="Social media"] a:hover{
+  transform: translateY(-2px);
+  filter: contrast(1.05) brightness(.98);
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+
+/* Contact items: emphasize on hover */
+footer address a{
+  transition: color .18s ease, text-shadow .18s ease;
+}
+footer address a:hover{
+  color:#0b0b0b;
+  text-shadow: 0 0 0 rgba(0,0,0,0); /* keeps crisp text while hinting focus */
+}
+
+/* Payment logos: tidy grayscale -> color + slight pop */
+footer .mt-6 ul li img{
+  filter: grayscale(1) contrast(1.05);
+  opacity: .8;
+  transform: translateZ(0);
+  transition: filter .25s ease, opacity .25s ease, transform .25s ease;
+}
+footer .mt-6 ul li:hover img{
+  filter: none;
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* “We Accept” shimmer (very subtle) */
+footer .mt-6 p{
+  position: relative;
+  overflow: hidden;
+}
+footer .mt-6 p::after{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,.06), transparent);
+  transform: translateX(-100%);
+  animation: footerShimmer 2.4s ease-in-out 1.2s both;
+}
+@keyframes footerShimmer{ to{ transform: translateX(100%) } }
+
+/* Bottom copyright: fade in after content */
+footer > p{
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .5s ease .2s, transform .5s ease .2s;
+}
+footer[aria-labelledby="site-footer-title"][data-visible="1"] > p{
+  opacity: 1; transform: none;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}

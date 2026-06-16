@@ -1,0 +1,61 @@
+/* ===== Wishlist: advanced-thin polish (no logic changes) ===== */
+
+/* Card surface + lift */
+.wl-card{
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+  transition: box-shadow .22s ease, transform .22s ease;
+}
+.wl-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.10);
+}
+
+/* Image: subtle hover float */
+.wl-img{
+  transition: transform .25s ease, filter .25s ease;
+  will-change: transform;
+}
+.wl-card:hover .wl-img{
+  transform: translateY(-2px) scale(1.03);
+  filter: contrast(1.03);
+}
+
+/* Primary CTA: classy shine */
+.wl-cta{ isolation: isolate; position: relative; }
+.wl-shine{
+  content:"";
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.18), rgba(255,255,255,0));
+  transform: translateX(-120%);
+  transition: transform .7s cubic-bezier(.22,.8,.3,1);
+}
+.wl-cta:hover .wl-shine{ transform: translateX(120%) }
+
+/* Ghost button polish + press ripple */
+.wl-ghost{ position: relative; overflow: hidden; }
+.wl-ghost:active::after{
+  content:""; position:absolute; left:50%; top:50%;
+  width: 0; height: 0; transform: translate(-50%,-50%);
+  background: rgba(0,0,0,.08); border-radius: 999px; opacity: 1;
+  animation: wlRipple .45s ease forwards;
+}
+@keyframes wlRipple{
+  to{ width: 220%; height: 220%; opacity: 0; }
+}
+
+/* Remove link: gentle emphasis */
+.wl-remove{ transition: color .18s ease, transform .18s ease; }
+.wl-remove:hover{ transform: translateY(-1px); }
+
+/* Accessible focus rings */
+a:focus-visible, button:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,102,255,.18);
+  border-radius: 10px;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}

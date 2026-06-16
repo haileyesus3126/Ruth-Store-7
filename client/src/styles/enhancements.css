@@ -1,0 +1,478 @@
+/* ===== Smart, thin polish for your Navbar (no JSX edits) ===== */
+
+/* Header glass when scrolled (your component already toggles classes) */
+header.fixed {
+  will-change: transform, backdrop-filter;
+}
+header.fixed.bg-white\/90 {
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(10px) saturate(1.15);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 4px 24px rgba(0,0,0,.06);
+}
+
+/* Logo micro-lift when scrolled */
+header.fixed img[alt*="Hallmark"]{ transition: transform .25s ease }
+header.fixed.bg-white\/90 img[alt*="Hallmark"]{ transform: translateY(-1px) }
+
+/* ---------- SMART HAIRLINE INDICATOR ---------- */
+/* Host container for the indicator (CSS vars are set by JS) */
+header nav[aria-label="Primary"]{
+  position: relative;
+  --ind-left: 0px;
+  --ind-width: 0px;
+  --ind-opacity: 0;
+}
+
+/* Ultra-thin gradient bar that slides under links */
+header nav[aria-label="Primary"]::after{
+  content:"";
+  position:absolute;
+  left: var(--ind-left);
+  bottom:-8px;             /* sits just below link text */
+  width: var(--ind-width);
+  height: 1px;             /* hairline */
+  background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.75), rgba(0,0,0,0));
+  transform: translateZ(0); /* keeps it crisp on HiDPI */
+  opacity: var(--ind-opacity);
+  transition:
+    left .28s cubic-bezier(.22,.8,.3,1),
+    width .28s cubic-bezier(.22,.8,.3,1),
+    opacity .18s ease;
+  pointer-events:none;
+}
+
+/* Link polish */
+header nav[aria-label="Primary"] a{
+  position:relative;
+  transition: color .18s ease, letter-spacing .18s ease;
+}
+header nav[aria-label="Primary"] a:hover{
+  color:#0b0b0b;
+  letter-spacing:.1px;
+}
+
+/* Hide the extra span underline that Navbar.jsx renders (prevents double underline) */
+header nav[aria-label="Primary"] a > span[aria-hidden="true"]{ display:none }
+
+/* Search field hairline + micro-expand */
+#navbar-search, #navbar-search-mobile{
+  box-shadow: 0 1px 0 rgba(0,0,0,.04) inset;
+  transition: box-shadow .2s ease, width .22s ease, background-color .2s ease, border-color .18s ease;
+}
+#navbar-search:focus-visible, #navbar-search-mobile:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,102,255,.18);
+  border-color: rgba(0,102,255,.36);
+}
+@media (min-width: 1024px){
+  #navbar-search:focus{ width: 18rem; }
+}
+
+/* Profile dropdown: pop-in animation (targets your [role="menu"]) */
+[role="menu"][aria-label="Account"]{
+  transform-origin: top right;
+  animation: menuIn .18s ease both;
+  border: 1px solid rgba(0,0,0,.06);
+}
+@keyframes menuIn{
+  from{ opacity:0; transform: translateY(-4px) scale(.98) }
+  to{ opacity:1; transform:none }
+}
+
+/* Cart badge: pop when it appears */
+a[aria-label^="Cart"] .rounded-full{
+  animation: badgePop .28s ease-out both;
+}
+@keyframes badgePop{
+  0%{ transform: scale(.6); opacity:0 }
+  60%{ transform: scale(1.15); opacity:1 }
+  100%{ transform: scale(1) }
+}
+
+/* Mobile drawer: smoother slide + safe-area + handle */
+#mobile-menu{
+  width: 80vw; max-width: 360px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.16);
+  padding-bottom: env(safe-area-inset-bottom);
+  will-change: transform;
+  transition: transform .28s cubic-bezier(.2,.8,.2,1);
+}
+#mobile-menu::before { content: none !important; }
+
+/* Overlay fade (your overlay is the fixed button) */
+button[aria-label="Close menu"].fixed{ animation: overlayIn .2s ease both }
+@keyframes overlayIn{ from{opacity:0} to{opacity:1} }
+
+/* Mobile nav item nudge on hover */
+nav[aria-label="Mobile primary"] a{
+  transition: background-color .18s ease, padding-left .18s ease;
+}
+nav[aria-label="Mobile primary"] a:hover{
+  background-color: rgba(0,0,0,.04);
+  padding-left: 1.9rem;
+}
+
+/* Icon micro-interaction (profile/cart) */
+header img[aria-hidden="true"]{
+  transition: filter .18s ease, transform .18s ease;
+}
+header a:hover img[aria-hidden="true"],
+header button:hover img[aria-hidden="true"]{
+  filter: contrast(1.1) brightness(.95);
+  transform: translateY(-1px);
+}
+
+/* Keyboard focus ring for all interactive */
+a:focus-visible, button:focus-visible, [role="button"]:focus-visible, input:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,102,255,.18);
+  border-radius: 12px;
+}
+/* ===== BestSeller smart hover shine (no markup changes) ===== */
+.group {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px; /* safe: only visual rounding */
+}
+.group::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 80%);
+  transform: skewX(-25deg);
+  pointer-events: none;
+}
+.group:hover::after {
+  animation: shine 0.9s forwards;
+}
+@keyframes shine {
+  100% { left: 125%; }
+}
+
+/* subtle card lift shadow (pairs with motion hover) */
+.group {
+  transition: box-shadow .25s ease;
+  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+}
+.group:hover {
+  box-shadow: 0 12px 28px rgba(0,0,0,.10);
+}
+
+/* respect reduced motion users */
+@media (prefers-reduced-motion: reduce){
+  .group, .group::after { animation: none !important; transition: none !important; }
+}
+
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}
+/* latest collection product shine */
+.group {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  transition: box-shadow .25s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,.04);
+}
+.group:hover {
+  box-shadow: 0 12px 26px rgba(0,0,0,.1);
+}
+.group::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,.15) 0%, rgba(255,255,255,0) 80%);
+  transform: skewX(-25deg);
+  pointer-events: none;
+}
+.group:hover::after {
+  animation: shine 0.9s forwards;
+}
+@keyframes shine {
+  100% { left: 125%; }
+}
+/* ===== Title: smart highlight & underline polish ===== */
+
+.pi-highlight {
+  display: inline-block;
+  position: relative;
+}
+.pi-highlight::after {
+  content:"";
+  position:absolute;
+  inset: 60% 0 0 0;
+  background: linear-gradient(90deg, rgba(255,215,0,.35), rgba(255,255,255,0));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .4s ease;
+  pointer-events: none;
+}
+.group:hover .pi-highlight::after {
+  transform: scaleX(1);
+}
+
+/* Smooth subtitle fade (extra if no framer-motion) */
+.mb-6 p {
+  transition: opacity .3s ease, transform .3s ease;
+}
+.group:hover + p {
+  opacity: .95;
+  transform: translateY(-2px);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .pi-highlight::after { transition: none !important }
+}
+/* When cart count increases, ShopContext adds .cart-bump to <body> */
+body.cart-bump a[aria-label^="Cart"] img[aria-hidden="true"],
+body.cart-bump a[aria-label^="Cart"] .rounded-full{
+  animation: cartBump .45s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes cartBump{
+  0%{ transform: translateY(0) scale(1) }
+  35%{ transform: translateY(-3px) scale(1.08) }
+  100%{ transform: translateY(0) scale(1) }
+}
+/* ===== Skip-to-content link ===== */
+.skip-link{
+  position: fixed;
+  top: -44px; left: 12px;
+  z-index: 1000;
+  background: #111; color: #fff;
+  padding: 8px 12px; border-radius: 10px;
+  transition: top .2s ease;
+  box-shadow: 0 10px 24px rgba(0,0,0,.18);
+}
+.skip-link:focus{
+  top: 10px;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,102,255,.18), 0 10px 24px rgba(0,0,0,.18);
+}
+
+/* ===== Free shipping progress ===== */
+.progress-rail{
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+.progress-fill{
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #22c55e);
+  transition: width .25s ease;
+}
+
+/* ===== Sticky Add-To-Cart (mobile) ===== */
+.sticky-atc{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 60;
+  padding: 10px 16px calc(12px + env(safe-area-inset-bottom));
+  background: rgba(255,255,255,.9);
+  backdrop-filter: saturate(1.2) blur(6px);
+  border-top: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 -12px 30px rgba(0,0,0,.12);
+}
+/* ===== Generic micro-interactions (no markup changes needed) ===== */
+
+/* 1) Hover pop / lift */
+.fx-pop {
+  transform: translateZ(0) scale(1);
+  transition: transform .18s ease, box-shadow .18s ease;
+  will-change: transform;
+}
+.fx-pop:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 10px 24px rgba(0,0,0,.10);
+}
+
+/* 2) Shine sweep (pair with .fx-pop for cards) */
+.fx-shine {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.fx-shine::after {
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(120deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,.18) 100%);
+  transform: translateX(-120%);
+  transition: transform .6s ease;
+  pointer-events: none;
+}
+.fx-shine:hover::after { transform: translateX(120%); }
+
+/* 3) Tap ripple (for buttons/links) – pure CSS */
+.fx-ripple { position: relative; overflow: hidden; }
+.fx-ripple:after{
+  content:""; position:absolute; border-radius:50%;
+  inset:auto auto 50% 50%; width:0; height:0;
+  background: rgba(255,255,255,.35);
+  transform: translate(-50%,50%);
+  opacity:0;
+}
+.fx-ripple:active:after{
+  animation: ripple .5s ease;
+}
+@keyframes ripple {
+  0% { width:0; height:0; opacity:.5; }
+  100% { width:260px; height:260px; opacity:0; }
+}
+
+/* 4) Subtle fade/slide in (for static elements that just mount) */
+.reveal-in {
+  animation: fadeUp .45s ease both;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(12px) }
+  to   { opacity:1; transform: none }
+}
+
+/* 5) Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .fx-pop, .fx-shine, .fx-ripple, .reveal-in, .progress-fill { transition: none !important; animation: none !important; }
+}
+/* ====== GLOBAL NAV POLISH ====== */
+
+/* Skip link */
+.skip-link{
+  position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+}
+.skip-link:focus{
+  position:fixed; left:12px; top:12px; width:auto; height:auto; z-index:9999;
+  background:#111; color:#fff; padding:.5rem .75rem; border-radius:.5rem;
+}
+
+/* Header glass when scrolled */
+header.fixed { will-change: transform, backdrop-filter; }
+header.fixed.bg-white\/90{
+  background: rgba(255,255,255,.86);
+  backdrop-filter: blur(10px) saturate(1.1);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+
+/* Logo micro-lift */
+header.fixed img[alt*="Hallmark"]{ transition: transform .22s ease }
+header.fixed.bg-white\/90 img[alt*="Hallmark"]{ transform: translateY(-1px) }
+
+/* ---------- SMART HAIRLINE INDICATOR ---------- */
+header nav[aria-label="Primary"]{
+  position: relative;
+  --ind-left: 0px;
+  --ind-width: 0px;
+  --ind-opacity: 0;
+}
+header nav[aria-label="Primary"]::after{
+  content:"";
+  position:absolute;
+  left: var(--ind-left);
+  bottom:-8px;
+  width: var(--ind-width);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.75), rgba(0,0,0,0));
+  transform: translateZ(0);
+  opacity: var(--ind-opacity);
+  transition: left .28s cubic-bezier(.22,.8,.3,1), width .28s cubic-bezier(.22,.8,.3,1), opacity .18s ease;
+  pointer-events:none;
+}
+/* Don’t double-underline (you still render a span underline in JSX) */
+header nav[aria-label="Primary"] a > span[aria-hidden="true"]{ display:none }
+
+/* Link polish */
+header nav[aria-label="Primary"] a{
+  position:relative;
+  transition: color .16s ease, letter-spacing .16s ease;
+}
+header nav[aria-label="Primary"] a:hover{
+  color:#0b0b0b;
+  letter-spacing:.1px;
+}
+
+/* Search micro expand + focus ring */
+#navbar-search, #navbar-search-mobile{
+  box-shadow: 0 1px 0 rgba(0,0,0,.04) inset;
+  transition: box-shadow .2s ease, width .22s ease, background-color .2s ease, border-color .18s ease;
+}
+#navbar-search:focus-visible, #navbar-search-mobile:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,102,255,.18);
+  border-color: rgba(0,102,255,.36);
+}
+@media (min-width: 1024px){
+  #navbar-search:focus{ width: 18rem; }
+}
+
+/* Profile dropdown: pop-in */
+[role="menu"][aria-label="Account"]{
+  transform-origin: top right;
+  animation: menuIn .18s ease both;
+  border: 1px solid rgba(0,0,0,.06);
+}
+@keyframes menuIn{
+  from{ opacity:0; transform: translateY(-4px) scale(.98) }
+  to{ opacity:1; transform:none }
+}
+
+/* Cart badge: pop when count changes */
+.badge-pop{
+  animation: badgePop .28s ease-out both;
+}
+@keyframes badgePop{
+  0%{ transform: scale(.6); opacity:0 }
+  60%{ transform: scale(1.15); opacity:1 }
+  100%{ transform: scale(1) }
+}
+
+/* Mobile drawer niceties */
+#mobile-menu{
+  width: 80vw; max-width: 360px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.16);
+  padding-bottom: env(safe-area-inset-bottom);
+  will-change: transform;
+  transition: transform .28s cubic-bezier(.2,.8,.2,1);
+}
+#mobile-menu::before{
+  content:""; position:absolute; top:10px; left:50%; transform:translateX(-50%);
+  width: 36px; height: 4px; border-radius: 999px; background: rgba(0,0,0,.12);
+}
+button[aria-label="Close menu"].fixed{ animation: overlayIn .2s ease both }
+@keyframes overlayIn{ from{opacity:0} to{opacity:1} }
+
+/* Mobile nav item nudge on hover */
+nav[aria-label="Mobile primary"] a{
+  transition: background-color .18s ease, padding-left .18s ease;
+}
+nav[aria-label="Mobile primary"] a:hover{
+  background-color: rgba(0,0,0,.04);
+  padding-left: 1.9rem;
+}
+
+/* Icon micro-interaction */
+header img[aria-hidden="true"]{
+  transition: filter .18s ease, transform .18s ease;
+}
+header a:hover img[aria-hidden="true"],
+header button:hover img[aria-hidden="true"]{
+  filter: contrast(1.08) brightness(.98);
+  transform: translateY(-1px);
+}
+
+/* Keyboard focus ring */
+a:focus-visible, button:focus-visible, [role="button"]:focus-visible, input:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,102,255,.18);
+  border-radius: 12px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation: none !important; transition: none !important }
+}

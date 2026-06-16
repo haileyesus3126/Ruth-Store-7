@@ -1,0 +1,41 @@
+/* ===== RecentlyViewed: advanced-thin polish (no logic changes) ===== */
+
+/* Card: soft elevation that pairs with motion lift */
+.rv-card .rv-cardInner{
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+  transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+  border: 1px solid rgba(0,0,0,.06);
+}
+.rv-card:hover .rv-cardInner{
+  box-shadow: 0 14px 34px rgba(0,0,0,.12);
+  border-color: rgba(0,0,0,.12);
+}
+
+/* Image area: subtle gloss + zoom on hover (zoom via framer is super light; CSS adds gloss) */
+.rv-img{
+  position: relative;
+  overflow: hidden;
+}
+.rv-img::after{
+  content:"";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 40% at 20% 10%, rgba(255,255,255,.18), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.02), transparent 30%);
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+.rv-card:hover .rv-img::after{ opacity: 1 }
+
+/* Title hover emphasis */
+.rv-cardInner .line-clamp-2{
+  transition: color .18s ease;
+}
+.rv-card:hover .line-clamp-2{ color: #111827; } /* gray-900 -> near black */
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}

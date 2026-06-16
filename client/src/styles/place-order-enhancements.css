@@ -1,0 +1,75 @@
+/* ===== PlaceOrder: advanced-thin polish (no logic changes) ===== */
+
+/* Card surface lighting */
+.po-card{
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+}
+
+/* Line items: soft hover highlight */
+.po-line{ transition: background-color .18s ease }
+.po-line:hover{
+  background: linear-gradient(90deg, rgba(0,0,0,.02), transparent 60%);
+}
+
+/* Totals: sleek gradient divider accent */
+.po-totals{
+  position: relative;
+}
+.po-totals::before{
+  content:"";
+  position:absolute; left:0; right:0; top:-1px; height:1px;
+  background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.12), rgba(0,0,0,0));
+  pointer-events:none;
+}
+
+/* Button: hairline shine sweep & inline spinner */
+.po-submit{ isolation: isolate; }
+.po-shine{
+  content:"";
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.18), rgba(255,255,255,0));
+  transform: translateX(-120%);
+  transition: transform .7s cubic-bezier(.22,.8,.3,1);
+}
+.po-submit:hover .po-shine{ transform: translateX(120%) }
+
+.po-spinner{
+  display:inline-block;
+  width: 1em; height: 1em;
+  margin-right: .5rem;
+  border: 2px solid rgba(255,255,255,.5);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: poSpin .7s linear infinite;
+  vertical-align: -2px;
+}
+@keyframes poSpin{ to{ transform: rotate(360deg) } }
+
+/* Success pop */
+.po-success{
+  position: relative;
+}
+.po-success-icon{
+  width: 56px; height: 56px;
+  margin: 0 auto 10px;
+  border-radius: 999px;
+  background: #10b981;           /* green-500 */
+  color: #fff;
+  display:flex; align-items:center; justify-content:center;
+  font-weight: 800; font-size: 28px;
+  box-shadow: 0 12px 30px rgba(16,185,129,.35);
+  transform: translateY(4px) scale(.98);
+  opacity: .0;
+  animation: poPop .38s ease-out .05s forwards;
+}
+@keyframes poPop{
+  0%{ opacity:0; transform: translateY(4px) scale(.98) }
+  60%{ opacity:1; transform: translateY(0) scale(1.06) }
+  100%{ opacity:1; transform: translateY(0) scale(1) }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}

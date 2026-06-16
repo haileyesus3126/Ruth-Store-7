@@ -1,0 +1,54 @@
+/* ===== About page: advanced-thin polish ===== */
+
+/* Heading underline shimmer (subtle) */
+.about-underline{
+  position: relative;
+  display: inline-block;
+}
+.about-underline::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:-6px; height:2px;
+  background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.7), rgba(0,0,0,0));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .5s cubic-bezier(.22,.8,.3,1);
+}
+.about-underline:hover::after{ transform: scaleX(1) }
+
+/* Stat cards: soft elevation + hairline highlight on hover */
+.about-card{
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+  transition: box-shadow .25s ease, border-color .25s ease;
+  border: 1px solid rgba(0,0,0,.06);
+}
+.about-card::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(60% 40% at 20% 10%, rgba(255,255,255,.18), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.02), transparent 30%);
+  opacity: 0; transition: opacity .25s ease; pointer-events: none;
+}
+.about-card:hover{
+  box-shadow: 0 14px 34px rgba(0,0,0,.12);
+  border-color: rgba(0,0,0,.12);
+}
+.about-card:hover::before{ opacity: 1 }
+
+/* Contact links: tiny lift & glow */
+.about-link{
+  position: relative;
+  transition: color .18s ease, text-shadow .18s ease, transform .18s ease;
+}
+.about-link:hover{
+  transform: translateY(-1px);
+  text-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}

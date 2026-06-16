@@ -1,0 +1,90 @@
+/* ===== Interests: advanced-thin polish (no logic changes) ===== */
+
+/* Search input: hairline glow + icon */
+.int-search{
+  transition: box-shadow .22s ease, border-color .22s ease, background-color .22s ease;
+  box-shadow: 0 1px 0 rgba(0,0,0,.04) inset;
+}
+.int-search:focus{
+  border-color: rgba(0,102,255,.36);
+  box-shadow: 0 0 0 3px rgba(0,102,255,.14);
+}
+.int-search-icon{
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #6b7280; /* gray-500 */
+  pointer-events: none;
+  opacity: .75;
+}
+
+/* Card lift + surface gloss */
+.int-card .int-cardInner{
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+  transition: box-shadow .25s ease, border-color .25s ease, transform .25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.int-card .int-cardInner::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(60% 40% at 20% 10%, rgba(255,255,255,.18), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.02), transparent 30%);
+  opacity: 0; transition: opacity .25s ease; pointer-events: none;
+}
+.int-card:hover .int-cardInner{
+  border-color: rgba(0,0,0,.16);
+  box-shadow: 0 14px 34px rgba(0,0,0,.12);
+}
+.int-card:hover .int-cardInner::before{ opacity: 1 }
+
+/* Logo: grayscale → color + tiny float on hover */
+.int-logo{
+  filter: grayscale(1) contrast(1.05);
+  transition: filter .25s ease, transform .25s ease;
+}
+.int-card:hover .int-logo{
+  filter: none;
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* Tooltip bubble */
+.int-tip{
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%, -6px);
+  margin-bottom: 6px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .22s ease, transform .22s ease;
+  z-index: 10;
+}
+.int-tip::after{
+  content:"";
+  position:absolute;
+  top: 100%;
+  left: 50%; transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #000;
+}
+.int-cardInner:hover .int-tip{
+  opacity: 1;
+  transform: translate(-50%, -10px);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}

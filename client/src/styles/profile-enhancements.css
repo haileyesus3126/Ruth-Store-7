@@ -1,0 +1,53 @@
+/* ===== Profile page: advanced-thin polish (no logic changes) ===== */
+
+/* Card surface lighting */
+.prof-card{
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+  transition: box-shadow .22s ease, transform .22s ease;
+  background: #fff;
+}
+.prof-card:hover{
+  box-shadow: 0 12px 28px rgba(0,0,0,.10);
+  transform: translateY(-1px);
+}
+
+/* List rows: soft hover highlight */
+.prof-list .prof-row{
+  transition: background-color .18s ease;
+}
+.prof-list .prof-row:hover{
+  background: linear-gradient(90deg, rgba(0,0,0,.02), transparent 60%);
+}
+
+/* CTA buttons: gentle shine sweep */
+.prof-cta{ isolation: isolate; }
+.prof-shine{
+  content:"";
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.18), rgba(255,255,255,0));
+  transform: translateX(-120%);
+  transition: transform .7s cubic-bezier(.22,.8,.3,1);
+}
+.prof-cta:hover .prof-shine{ transform: translateX(120%) }
+
+/* Wishlist cards: tiny lift */
+.prof-wish{
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.prof-wish:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.10);
+}
+
+/* Focus rings for accessibility */
+a:focus-visible, button:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,102,255,.18);
+  border-radius: 10px;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}

@@ -1,0 +1,46 @@
+/* ===== Auth: advanced-thin polish (no logic changes) ===== */
+
+/* Card: soft elevation + surface lighting */
+.auth-card{
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+  position: relative;
+  overflow: hidden;
+}
+.auth-card::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(60% 40% at 20% 10%, rgba(255,255,255,.18), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.02), transparent 30%);
+  pointer-events: none;
+  opacity: .0;
+  transition: opacity .25s ease;
+}
+.auth-card:hover::before{ opacity: .9 }
+
+/* Input: premium focus ring */
+.auth-input{
+  box-shadow: 0 1px 0 rgba(0,0,0,.04) inset;
+  transition: box-shadow .22s ease, border-color .22s ease, background-color .22s ease;
+}
+.auth-input:focus{
+  border-color: rgba(0,102,255,.36);
+  box-shadow: 0 0 0 3px rgba(0,102,255,.14);
+}
+
+/* Submit button: hairline shine sweep */
+.auth-submit{ isolation: isolate; }
+.auth-shine{
+  content:"";
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.18), rgba(255,255,255,0));
+  transform: translateX(-120%);
+  transition: transform .7s cubic-bezier(.22,.8,.3,1);
+}
+.auth-submit:hover .auth-shine{ transform: translateX(120%); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important }
+}
