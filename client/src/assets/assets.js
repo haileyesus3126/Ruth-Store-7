@@ -89,7 +89,7 @@ import veteransDayIcon from './images/veteransday.png';
 import thanksgivingIcon from './images/thanksgiving.png';
 import hanukkahIcon from './images/hanukkah.png';
 import kwanzaaIcon from './images/kwanzaa.png';
-import lunarNewYearIcon from './images/lunarnewyear.png';
+
 import ramadanIcon from './images/ramadan.png';
 import diwaliIcon from './images/diwali.png';
 import roshHashanahIcon from './images/roshhashanah.png';
